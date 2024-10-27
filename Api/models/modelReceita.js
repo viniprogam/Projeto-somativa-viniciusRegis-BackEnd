@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
 const connection = require('../database/database');
 
+const modelCategoria = require('./modelCategoria')
+
 const modelReceita = connection.define(
     'tbl_receita',
     {
@@ -8,6 +10,10 @@ const modelReceita = connection.define(
             type:Sequelize.INTEGER,
             primaryKey:true,
             autoIncrement:true
+        },
+        cod_categoria:{
+            type: Sequelize.INTEGER,
+            allowNull: false
         },
         nome_receita:{
             type:Sequelize.STRING(100),
@@ -23,6 +29,16 @@ const modelReceita = connection.define(
         } 
     }
 );
+
+modelCategoria.hasMany(modelReceita, {
+    foreingKey: 'cod_categoria',
+    sourceKey: 'cod_categoria'
+});
+
+modelReceita.belongsTo(modelCategoria, {
+    foreingKey: 'cod_categoria',
+    sourceKey: 'cod_categoria'
+})
 
 // modelReceita.sync({force:true});
 
