@@ -43,4 +43,5 @@ modelReceita.belongsTo(modelCategoria, {
 // modelReceita.sync({force:true});
 
 
+
 module.exports = modelReceita
